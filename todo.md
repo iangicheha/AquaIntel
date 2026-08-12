@@ -1,5 +1,5 @@
-# Nairobi County map clarity refinement
+# Nairobi County boundary visibility correction
 
-- [x] Remove all visible dots and point markers from the map.
-- [x] Enlarge and strengthen the verified Nairobi County boundary.
-- [x] Verify the clearer map and publish a checkpoint.
+- [x] Increase county boundary stroke contrast and thickness.
+- [x] Add a subtle filled county silhouette and reduce background map noise.
+- [x] Verify the county is clearly visible and publish a checkpoint.

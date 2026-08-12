@@ -143,9 +143,9 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 
 /* Nairobi County context and hydraulic hierarchy refinements. */
 .county-context { pointer-events: none; }
-.county-boundary { fill: rgba(29, 92, 132, .12); stroke: rgba(92, 170, 206, .5); stroke-width: 1.4; stroke-dasharray: 5 4; }
+.county-boundary { fill: rgba(24, 142, 166, .28); stroke: #55edf2; stroke-width: 3.6; stroke-dasharray: none; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 4px rgba(85, 237, 242, .55)); }
 .county-subdivision { fill: none; stroke: rgba(99, 157, 188, .2); stroke-width: .8; stroke-dasharray: 2 4; }
-.county-label { fill: #6f9db2 !important; font-family: 'IBM Plex Mono'; font-size: 8px; letter-spacing: .08em; }
+.county-label { fill: #c7fbff !important; font-family: 'IBM Plex Mono'; font-size: 11px; font-weight: 700; letter-spacing: .14em; paint-order: stroke; stroke: #061522; stroke-width: 3px; }
 .network-pipes .feeder { stroke: #71d9c8; stroke-width: 1.8; opacity: .88; }
 .network-pipes .feeder.flow { stroke: #62e8f3; }
 .network-pipes .feeder.leak-pipe, .network-pipes .feeder.selected-pipe { stroke: #ff5f68; stroke-width: 6; opacity: 1; }
@@ -158,8 +158,8 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 .reference-map-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; filter: saturate(.88) contrast(1.04) brightness(.74); pointer-events: none; }
 .reference-map-shade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(3, 15, 26, .38), rgba(3, 15, 26, .06) 46%, rgba(3, 15, 26, .28)), linear-gradient(0deg, rgba(3, 15, 26, .42), transparent 35%); }
 .map-stage .network-svg { position: relative; z-index: 2; background: transparent; }
-.map-stage .network-svg > rect { opacity: .13; }
-.map-stage .county-context { opacity: .18; }
+.map-stage .network-svg > rect { opacity: .055; }
+.map-stage .county-context { opacity: 1; }
 .map-stage .map-legend, .map-stage .map-scale, .map-stage .map-help { z-index: 4; }
 .map-stage .map-legend { background: rgba(4, 18, 29, .84); border-color: rgba(108, 181, 220, .4); }
 .map-stage .map-scale { background: rgba(4, 18, 29, .86); }
