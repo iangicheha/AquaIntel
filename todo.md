@@ -1,6 +1,6 @@
-# Visual corrections
+# GitHub update push
 
-- [x] Flatten the Nairobi Water Network into a clean 2D map treatment.
-- [x] Remove all logo glow, pulse, and orbit effects.
-- [x] Restyle the logo as a clearly colored water droplet.
-- [x] Verify the revised dashboard and save a checkpoint.
+- [ ] Inspect the latest local changes and target remote.
+- [ ] Commit the 2D map and colored droplet logo update.
+- [ ] Push the update to AquaIntel main.
+- [ ] Verify the remote commit.
