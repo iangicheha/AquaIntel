@@ -227,11 +227,3 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 .ai-actions { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
 .ai-actions button { display: inline-flex; align-items: center; gap: 5px; border: 1px solid rgba(75, 144, 205, .32); border-radius: 4px; padding: 6px 7px; background: rgba(13, 48, 79, .72); color: #acd8fa; font-size: 8px; cursor: pointer; }
 .ai-actions button:hover { border-color: #27c8d4; color: #d8ffff; background: rgba(15, 77, 103, .82); }
-
-/* Header brand treatment: the two-droplet Aquaintel mark is visible beside the command-center title. */
-.topbar-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.topbar-brand > svg { width: 34px; height: 34px; flex: 0 0 auto; overflow: visible; }
-.topbar-brand .droplet-large { fill: #18cde0; stroke: #9ff4ff; stroke-width: 1.1; stroke-linejoin: round; }
-.topbar-brand .droplet-small { fill: #2387e8; stroke: #8ed4ff; stroke-width: 1.1; stroke-linejoin: round; }
-.topbar-brand .droplet-highlight { fill: none; stroke: #e2fcff; stroke-width: 1.35; stroke-linecap: round; opacity: .9; }
-@media (max-width: 520px) { .topbar-brand { gap: 7px; } .topbar-brand > svg { width: 28px; height: 28px; } }

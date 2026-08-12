@@ -1,5 +1,5 @@
-# Header logo update
+# Header rollback
 
-- [x] Place the two-droplet Aquaintel logo prominently in the upper header.
-- [x] Align the logo with the Aquaintel wordmark and preserve responsive spacing.
-- [x] Verify the header branding and save a checkpoint.
+- [x] Remove the two-droplet logo from the upper header.
+- [x] Restore the previous title spacing and remove unused header-logo styles.
+- [x] Verify the restored header and save a checkpoint.
