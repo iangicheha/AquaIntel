@@ -1,6 +1,5 @@
-# GitHub update push
+# Logo correction
 
-- [ ] Inspect the latest local changes and target remote.
-- [ ] Commit the 2D map and colored droplet logo update.
-- [ ] Push the update to AquaIntel main.
-- [ ] Verify the remote commit.
+- [x] Replace the current circular logo treatment with a recognizable teardrop-shaped water icon.
+- [x] Keep the droplet colored and remove all glow effects.
+- [x] Verify the logo at desktop and mobile sizes and save a checkpoint.

@@ -29,7 +29,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 .dashboard-shell { min-height: 100vh; display: flex; background: radial-gradient(circle at 58% -12%, rgba(23, 78, 125, .18), transparent 31%), #07111d; }
 .sidebar { width: 210px; flex: 0 0 210px; border-right: 1px solid rgba(93, 147, 188, .2); background: linear-gradient(180deg, rgba(5, 17, 29, .98), rgba(5, 14, 24, .99)); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; z-index: 20; }
 .brand { height: 57px; padding: 0 16px; border-bottom: 1px solid rgba(93, 147, 188, .18); display: flex; align-items: center; gap: 9px; }
-.brand-mark { width: 34px; height: 34px; display: grid; place-items: center; color: #b9f5ff; border: 1px solid #1689c8; border-radius: 50%; background: #0b4169; position: relative; } .brand-mark svg { fill: #18cde0; stroke: #b9f5ff; stroke-width: 1.7; }
+.brand-mark { width: 34px; height: 36px; display: grid; place-items: center; color: #b9f5ff; position: relative; } .brand-mark svg { width: 25px; height: 31px; fill: #18cde0; stroke: #9ff4ff; stroke-width: 1.2; stroke-linejoin: round; } .brand-mark .droplet-highlight { fill: none; stroke: #d7fbff; stroke-width: 1.5; stroke-linecap: round; opacity: .9; }
 .brand strong { display: block; font-size: 15px; letter-spacing: .08em; line-height: 1; }
 .brand span, .brand div > span { display: block; color: #8da4b6; font-size: 8px; margin-top: 4px; letter-spacing: .02em; }
 .close-mobile, .mobile-menu { display: none; background: none; border: 0; }
