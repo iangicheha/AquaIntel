@@ -1,5 +1,6 @@
-# Simplified Nairobi map
+# Nairobi County-only presentation
 
-- [x] Remove the visible animated pipe network and flowing water lines from the map.
-- [x] Preserve the verified Nairobi County boundary and infrastructure markers.
-- [x] Verify the simplified map and save a checkpoint.
+- [x] Remove pipe IDs, pipe types, and pipe-specific wording from alert cards.
+- [x] Remove pipe references from the AI Water Coworker intelligence panel.
+- [x] Simplify map labels so the presentation focuses on Nairobi County only.
+- [x] Verify the county-only dashboard and save a checkpoint.
