@@ -1,6 +1,5 @@
-# Nairobi County boundary integration
+# Simplified Nairobi map
 
-- [x] Inspect the supplied Kenya counties archive and identify the Nairobi County feature.
-- [x] Extract and normalize the Nairobi boundary for browser use.
-- [x] Replace the illustrative map outline with the verified boundary.
-- [x] Verify the network overlay, responsiveness, and save a checkpoint.
+- [x] Remove the visible animated pipe network and flowing water lines from the map.
+- [x] Preserve the verified Nairobi County boundary and infrastructure markers.
+- [x] Verify the simplified map and save a checkpoint.
