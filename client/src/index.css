@@ -165,3 +165,28 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 .map-stage .map-scale { background: rgba(4, 18, 29, .86); }
 .map-stage .map-selected-label rect { fill: rgba(3, 17, 28, .9); }
 @media (max-width: 820px) { .reference-map-image { object-position: 52% center; } }
+
+/* Lively map recreation: animation communicates flow, health, and operational urgency. */
+.map-panel { overflow: hidden; }
+.network-svg { background: radial-gradient(circle at 48% 45%, rgba(20, 79, 100, .32), transparent 54%), #071b2b; }
+.network-pipes path { stroke-dasharray: none; }
+.network-pipes .transmission { filter: drop-shadow(0 0 3px rgba(48, 142, 255, .48)); }
+.network-pipes .distribution { filter: drop-shadow(0 0 2px rgba(32, 189, 168, .38)); }
+.flow-arrows path { fill: none; stroke: #8ee9ff; stroke-width: 1.8; opacity: .84; stroke-dasharray: 9 16; animation: flowDash 2.4s linear infinite; pointer-events: none; }
+.flow-particles { pointer-events: none; }
+.flow-particle { fill: #b8f7ff; opacity: .96; filter: drop-shadow(0 0 3px rgba(123, 231, 255, .9)); }
+.flow-particle.danger { fill: #ff8790; filter: drop-shadow(0 0 4px rgba(255, 76, 91, .9)); }
+.network-nodes circle, .network-nodes rect, .infra-sites > g { transition: transform .18s ease-out, filter .18s ease-out; }
+.network-nodes circle:hover, .network-nodes rect:hover, .infra-sites > g:hover { filter: drop-shadow(0 0 5px rgba(129, 224, 255, .95)); }
+.sensor-node { animation: sensorPulse 2.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.sensor-node.warning { animation-duration: 1.45s; }
+.site-marker { cursor: pointer; }
+.site-marker.treatment rect { fill: #155ca2; stroke: #78caff; stroke-width: 1; }
+.site-marker.treatment path { fill: #a9ebff; }
+.site-marker.reservoir ellipse, .site-marker.reservoir path { fill: #123f74; stroke: #71d5ff; stroke-width: 1; }
+.site-marker.reservoir path { fill: none; }
+.live-alert-marker { animation: alertPulse 1.55s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes flowDash { to { stroke-dashoffset: -50; } }
+@keyframes sensorPulse { 0%, 100% { opacity: .82; transform: scale(1); } 50% { opacity: 1; transform: scale(1.28); } }
+@keyframes alertPulse { 0%, 100% { opacity: .76; transform: scale(1); } 50% { opacity: 1; transform: scale(1.18); } }
+@media (prefers-reduced-motion: reduce) { .flow-arrows path, .sensor-node, .live-alert-marker { animation: none; } }
