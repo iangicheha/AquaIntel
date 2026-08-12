@@ -1,5 +1,6 @@
-# Header rollback
+# Nairobi County boundary integration
 
-- [x] Remove the two-droplet logo from the upper header.
-- [x] Restore the previous title spacing and remove unused header-logo styles.
-- [x] Verify the restored header and save a checkpoint.
+- [x] Inspect the supplied Kenya counties archive and identify the Nairobi County feature.
+- [x] Extract and normalize the Nairobi boundary for browser use.
+- [x] Replace the illustrative map outline with the verified boundary.
+- [x] Verify the network overlay, responsiveness, and save a checkpoint.
