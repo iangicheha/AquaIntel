@@ -1,6 +1,5 @@
-# GitHub Vercel-fix push
+# Header logo update
 
-- [ ] Inspect the latest Vercel deployment-fix changes and AquaIntel remote.
-- [ ] Commit the Vercel deployment configuration.
-- [ ] Push the commit to AquaIntel main.
-- [ ] Verify the remote commit and clean local tree.
+- [x] Place the two-droplet Aquaintel logo prominently in the upper header.
+- [x] Align the logo with the Aquaintel wordmark and preserve responsive spacing.
+- [x] Verify the header branding and save a checkpoint.
