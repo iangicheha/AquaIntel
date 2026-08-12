@@ -1,5 +1,6 @@
-# Logo correction
+# Two-droplet logo and GitHub push
 
-- [x] Replace the current circular logo treatment with a recognizable teardrop-shaped water icon.
-- [x] Keep the droplet colored and remove all glow effects.
-- [x] Verify the logo at desktop and mobile sizes and save a checkpoint.
+- [ ] Update the logo to show one large and one small colored water droplet.
+- [ ] Verify the updated logo in the dashboard.
+- [ ] Commit and push the change to AquaIntel main.
+- [ ] Confirm the remote GitHub commit.
