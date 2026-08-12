@@ -190,3 +190,40 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 @keyframes sensorPulse { 0%, 100% { opacity: .82; transform: scale(1); } 50% { opacity: 1; transform: scale(1.28); } }
 @keyframes alertPulse { 0%, 100% { opacity: .76; transform: scale(1); } 50% { opacity: 1; transform: scale(1.18); } }
 @media (prefers-reduced-motion: reduce) { .flow-arrows path, .sensor-node, .live-alert-marker { animation: none; } }
+
+/* GIS-ready digital twin additions: dense utility controls, traceable network metadata, and demo-data honesty. */
+.layer-control-panel { position: absolute; top: 42px; right: 48px; z-index: 8; width: 220px; padding: 11px; border: 1px solid rgba(80, 155, 216, .34); border-radius: 6px; background: rgba(5, 18, 31, .96); box-shadow: 0 18px 36px rgba(0,0,0,.32); }
+.layer-control-head, .dock-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.layer-control-head strong, .layer-control-head small { display: block; }
+.layer-control-head strong { font-size: 10px; color: #e4f2fb; }
+.layer-control-head small { margin-top: 3px; color: #718da2; font-size: 7px; }
+.layer-control-head > svg { color: #7595a9; cursor: pointer; }
+.layer-group { display: flex; flex-wrap: wrap; gap: 4px; padding-top: 9px; margin-top: 8px; border-top: 1px solid rgba(89, 139, 178, .13); }
+.layer-group > span { width: 100%; color: #8eb3ca; font-size: 7px; letter-spacing: .08em; text-transform: uppercase; }
+.layer-group button, .pipe-inspector .dock-heading > button, .trace-actions button, .dma-inspector select { border: 1px solid rgba(87, 144, 188, .25); border-radius: 4px; background: rgba(15, 38, 58, .72); color: #7692a4; padding: 5px 6px; font-size: 7px; }
+.layer-group button.on { border-color: rgba(37, 191, 188, .55); background: rgba(11, 119, 124, .24); color: #9bf3e2; }
+.map-actions button.active { border-color: #2acdbf; color: #a5fff0; background: rgba(12, 115, 125, .35); }
+.demo-network-stamp { position: absolute; left: 50%; bottom: 11px; transform: translateX(-50%); z-index: 3; padding: 4px 8px; border: 1px solid rgba(248, 177, 61, .35); border-radius: 4px; background: rgba(30, 24, 13, .9); color: #f4c66b; font-family: 'IBM Plex Mono'; font-size: 7px; letter-spacing: .03em; white-space: nowrap; }
+.demo-network-stamp .live-dot { margin: 0 5px 0 0; width: 5px; height: 5px; background: #f0b34e; box-shadow: 0 0 6px #f0b34e; }
+.map-bottom-dock { display: grid; grid-template-columns: minmax(0, 1.16fr) minmax(0, .84fr); gap: 8px; padding: 8px 10px 10px; border-top: 1px solid rgba(82, 137, 177, .16); background: rgba(5, 17, 29, .82); }
+.pipe-inspector, .dma-inspector { min-width: 0; border: 1px solid rgba(79, 145, 188, .2); border-radius: 5px; padding: 9px; background: rgba(10, 29, 45, .66); }
+.eyebrow { color: #4b9cf2; font-family: 'IBM Plex Mono'; font-size: 7px; letter-spacing: .08em; }
+.dock-heading h3 { margin: 4px 0 0; color: #e5f3fb; font-size: 11px; font-weight: 600; }
+.pipe-inspector .dock-heading > button { color: #9bc8ed; cursor: pointer; }
+.pipe-meta-grid, .dma-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin-top: 10px; }
+.pipe-meta-grid span, .dma-grid span { color: #718da0; font-size: 7px; line-height: 1.35; }
+.pipe-meta-grid b, .dma-grid b { display: block; margin-top: 2px; color: #d9eaf4; font-family: 'IBM Plex Mono'; font-size: 8px; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.trace-actions { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+.trace-actions button { display: inline-flex; align-items: center; gap: 4px; color: #9bd4ef; cursor: pointer; }
+.trace-actions button:hover, .layer-group button:hover { border-color: #35c6d0; color: #d8ffff; }
+.dma-inspector select { color: #bcdef0; background: #0c263d; }
+.dma-inspector select option { background: #0c263d; }
+.dock-heading h3 em { margin-left: 6px; padding: 3px 5px; border-radius: 3px; font-style: normal; font-family: 'IBM Plex Mono'; font-size: 7px; }
+.risk-high { color: #ff7a7d; background: rgba(211, 50, 64, .16); }.risk-medium { color: #f6be59; background: rgba(205, 134, 27, .16); }.risk-low { color: #2bd0aa; background: rgba(20, 165, 135, .16); }
+@media (max-width: 1080px) { .map-bottom-dock { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .layer-control-panel { top: 44px; right: 9px; width: min(220px, calc(100% - 18px)); } .map-bottom-dock { padding: 7px; } .pipe-meta-grid, .dma-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .demo-network-stamp { left: 9px; transform: none; max-width: calc(100% - 18px); overflow: hidden; text-overflow: ellipsis; } }
+
+/* AI network workflow: actions stay compact, explicit, and tied to map operations. */
+.ai-actions { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.ai-actions button { display: inline-flex; align-items: center; gap: 5px; border: 1px solid rgba(75, 144, 205, .32); border-radius: 4px; padding: 6px 7px; background: rgba(13, 48, 79, .72); color: #acd8fa; font-size: 8px; cursor: pointer; }
+.ai-actions button:hover { border-color: #27c8d4; color: #d8ffff; background: rgba(15, 77, 103, .82); }
