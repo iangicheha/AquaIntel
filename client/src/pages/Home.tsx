@@ -66,7 +66,7 @@ type MapMode = "pressure" | "flow";
 function NetworkMap() {
   const [mode, setMode] = useState<MapMode>("pressure");
   const [selected, setSelected] = useState("DP-6B-143");
-  const [zoom, setZoom] = useState(1); const [showEvidence, setShowEvidence] = useState(false);
+  const [zoom, setZoom] = useState(1); const [showEvidence, setShowEvidence] = useState(false); const [showIntel, setShowIntel] = useState(true);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const selectedAlert = alerts.find((a) => a.pipe === selected) || alerts[1];
   const nodes = useMemo(() => [
@@ -80,10 +80,10 @@ function NetworkMap() {
     { id: "TM-02", d: "M430 92 V326", type: "transmission" },
     { id: "DP-01", d: "M92 92 V246 H284 V326", type: "distribution" },
     { id: "DP-02", d: "M154 92 V166 H354 V246 H510", type: "distribution" },
-    { id: "DP-03-018", d: "M218 166 H284 V92", type: "distribution" },
+    { id: "DP-03-018", d: "M218 166 H284 V92", type: "feeder" },
     { id: "DP-6B-143", d: "M510 92 V166 H590 V246 H678", type: "distribution", leak: true },
-    { id: "DP-07-091", d: "M590 166 H770 V326", type: "distribution" },
-    { id: "DP-04-022", d: "M92 246 H154 V326 H430", type: "distribution" },
+    { id: "DP-07-091", d: "M590 166 H770 V326", type: "feeder" },
+    { id: "DP-04-022", d: "M92 246 H154 V326 H430", type: "feeder" },
     { id: "DP-08", d: "M678 92 V166 H820", type: "distribution" },
   ];
   const pipeClass = (pipe: typeof pipes[number]) => `${pipe.type} ${pipe.leak ? "leak-pipe" : ""} ${pipe.id === selected ? "selected-pipe" : ""} ${mode}`;
@@ -93,6 +93,7 @@ function NetworkMap() {
       <svg viewBox="0 0 860 380" className="network-svg" aria-label="Simulated Nairobi hydraulic distribution network" onPointerDown={(e) => { const startX = e.clientX; const startY = e.clientY; const sx = offset.x; const sy = offset.y; const move = (ev: PointerEvent) => setOffset({ x: sx + ev.clientX - startX, y: sy + ev.clientY - startY }); const up = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); }; window.addEventListener("pointermove", move); window.addEventListener("pointerup", up); }}>
         <defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#183a55" strokeWidth=".65" /></pattern></defs>
         <rect width="860" height="380" fill="url(#grid)" />
+        <g className="county-context"><path className="county-boundary" d="M72 70 L166 38 L274 48 L366 30 L488 50 L604 35 L742 68 L812 132 L786 214 L816 286 L754 344 L638 356 L534 340 L428 366 L308 344 L204 360 L104 316 L48 238 L66 156 Z" /><path className="county-subdivision" d="M166 38 L204 154 L104 316 M274 48 L320 170 L308 344 M366 30 L430 150 L428 366 M488 50 L520 176 L534 340 M604 35 L626 164 L638 356 M742 68 L700 176 L754 344 M66 156 L320 170 L626 164 L786 214 M48 238 L308 244 L638 248 L816 286" /><text x="344" y="202" className="county-label">NAIROBI COUNTY · DISTRIBUTION EXTENT</text></g>
         <g transform={`translate(${offset.x} ${offset.y}) scale(${zoom})`} className="topology-layer">
           <g className="network-pipes">{pipes.map((pipe) => <path key={pipe.id} d={pipe.d} className={pipeClass(pipe)} onClick={() => setSelected(pipe.id)} />)}</g>
           <g className="network-nodes">{nodes.map(([x, y, kind], i) => kind === "valve" ? <rect key={i} x={x - 4} y={y - 4} width="8" height="8" className="valve-node" onClick={() => toast(`Valve ${i + 1} selected`)} /> : kind === "reservoir" ? <g key={i} onClick={() => toast("Kabete Reservoir selected")}><rect x={x - 10} y={y - 7} width="20" height="14" rx="2" className="reservoir-node" /><path d={`M${x - 7} ${y - 2}h14`} className="reservoir-water" /></g> : <circle key={i} cx={x} cy={y} r="3" className={i % 7 === 0 ? "sensor-node warning" : "sensor-node"} onClick={() => toast(`Pressure sensor PS-${i + 1} selected`)} />)}</g>
@@ -102,11 +103,11 @@ function NetworkMap() {
           <g className="map-selected-label" transform="translate(604 260)"><rect width="150" height="58" rx="4" /><text x="10" y="16">SELECTED PIPE</text><text x="10" y="31" className="selected-value">{selectedAlert.pipe}</text><text x="10" y="46">Leak probability {selectedAlert.probability}</text></g>
         </g>
       </svg>
-      <div className="map-legend"><strong>Hydraulic legend</strong><span><i className="legend-line transmission" />Transmission main</span><span><i className="legend-line distribution" />Distribution pipe</span><span><i className="legend-dot green" />Healthy sensor</span><span><i className="legend-square" />Valve</span><span><i className="legend-reservoir" />Reservoir / tank</span><span><i className="legend-dot red" />Leak segment</span></div>
+      <div className="map-legend"><strong>Hydraulic legend</strong><span><i className="legend-line transmission" />Transmission main</span><span><i className="legend-line distribution" />Distribution pipe</span><span><i className="legend-line feeder" />Local distributor / feeder</span><span><i className="legend-dot green" />Healthy sensor</span><span><i className="legend-square" />Valve</span><span><i className="legend-reservoir" />Reservoir / tank</span><span><i className="legend-dot red" />Leak segment</span></div>
       <div className="map-scale"><div className="metric-toggle"><button className={mode === "pressure" ? "active" : ""} onClick={() => setMode("pressure")}>Pressure</button><button className={mode === "flow" ? "active" : ""} onClick={() => setMode("flow")}>Flow</button></div><div className={`scale-bar ${mode}`} /><small>Low <b>High</b></small></div>
       <div className="map-help">Drag to pan · scroll controls via buttons · click pipe or sensor</div>
     </div>
-    <div className="leak-intel-card"><div className="intel-card-heading"><div><span className="eyebrow">AI PRIORITY EVENT · {selectedAlert.pipe}</span><h3>{selectedAlert.zone.toUpperCase()}</h3></div><em>HIGH</em></div><div className="intel-grid"><span>Leak Probability <b>{selectedAlert.probability}</b></span><span>Estimated Loss <b>{selectedAlert.loss}</b></span><span>Pipe <b>200 mm DI</b></span><span>Pressure Anomaly <b>-18%</b></span><span>Flow Anomaly <b>+16%</b></span><span>Detected <b>14 min ago</b></span></div><p><strong>Why AQUAINTEL flagged this location</strong> Flow increased by 17% while downstream consumption remained stable. Pressure dropped across two adjacent sensors; the combined pattern is consistent with a probable pipe leak.</p><div className="intel-actions"><button onClick={() => setShowEvidence((v) => !v)}><Search size={13} /> {showEvidence ? "Hide Evidence" : "View Evidence"}</button><button className="primary-btn" onClick={() => toast(`Work order created for ${selectedAlert.pipe}`)}><Plus size={13} /> Create Work Order</button></div>{showEvidence && <div className="evidence-strip"><span><b>PS-26</b> Pressure 31.4 m</span><span><b>FM-26</b> Flow +16%</span><span><b>7-day baseline</b> Stable consumption</span><span><b>Confidence</b> 91%</span></div>}</div>
+    {showIntel && <div className="leak-intel-card"><div className="intel-card-heading"><div><span className="eyebrow">AI PRIORITY EVENT · {selectedAlert.pipe}</span><h3>{selectedAlert.zone.toUpperCase()}</h3></div><div className="intel-heading-actions"><em>HIGH</em><button className="intel-close" aria-label="Dismiss AI priority event" onClick={() => setShowIntel(false)}><X size={13} /></button></div></div><div className="intel-grid"><span>Leak Probability <b>{selectedAlert.probability}</b></span><span>Estimated Loss <b>{selectedAlert.loss}</b></span><span>Pipe <b>200 mm DI</b></span><span>Pressure Anomaly <b>-18%</b></span><span>Flow Anomaly <b>+16%</b></span><span>Detected <b>14 min ago</b></span></div><p><strong>Why AQUAINTEL flagged this location</strong> Flow increased by 17% while downstream consumption remained stable. Pressure dropped across two adjacent sensors; the combined pattern is consistent with a probable pipe leak.</p><div className="intel-actions"><button onClick={() => setShowEvidence((v) => !v)}><Search size={13} /> {showEvidence ? "Hide Evidence" : "View Evidence"}</button><button className="primary-btn" onClick={() => toast(`Work order created for ${selectedAlert.pipe}`)}><Plus size={13} /> Create Work Order</button></div>{showEvidence && <div className="evidence-strip"><span><b>PS-26</b> Pressure 31.4 m</span><span><b>FM-26</b> Flow +16%</span><span><b>7-day baseline</b> Stable consumption</span><span><b>Confidence</b> 91%</span></div>}</div>}
   </Panel>;
 }
 

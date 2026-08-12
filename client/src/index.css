@@ -140,3 +140,16 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 .evidence-strip span { color: #7f99aa; font-size: 7px; line-height: 1.35; }
 .evidence-strip b { display: block; color: #d9edf8; font-family: 'IBM Plex Mono'; font-size: 8px; font-weight: 400; margin-bottom: 2px; }
 @media (max-width: 520px) { .evidence-strip { grid-template-columns: repeat(2, 1fr); } }
+
+/* Nairobi County context and hydraulic hierarchy refinements. */
+.county-context { pointer-events: none; }
+.county-boundary { fill: rgba(29, 92, 132, .12); stroke: rgba(92, 170, 206, .5); stroke-width: 1.4; stroke-dasharray: 5 4; }
+.county-subdivision { fill: none; stroke: rgba(99, 157, 188, .2); stroke-width: .8; stroke-dasharray: 2 4; }
+.county-label { fill: #6f9db2 !important; font-family: 'IBM Plex Mono'; font-size: 8px; letter-spacing: .08em; }
+.network-pipes .feeder { stroke: #71d9c8; stroke-width: 1.8; opacity: .88; }
+.network-pipes .feeder.flow { stroke: #62e8f3; }
+.network-pipes .feeder.leak-pipe, .network-pipes .feeder.selected-pipe { stroke: #ff5f68; stroke-width: 6; opacity: 1; }
+.legend-line.feeder { border-top-color: #71d9c8; border-top-width: 2px; }
+.intel-heading-actions { display: flex; align-items: center; gap: 7px; }
+.intel-close { width: 21px; height: 21px; display: grid; place-items: center; padding: 0; border: 1px solid rgba(150, 180, 199, .3); border-radius: 4px; background: rgba(20, 43, 61, .7); color: #9ab1c0; }
+.intel-close:hover { color: #fff; background: rgba(188, 59, 72, .72); border-color: #ef5961; }
