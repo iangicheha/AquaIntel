@@ -1,0 +1,12 @@
+{
+  "framework": "vite",
+  "buildCommand": "pnpm build:vercel",
+  "outputDirectory": "dist/public",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
