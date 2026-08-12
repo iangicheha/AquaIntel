@@ -159,6 +159,18 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 .reference-map-shade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(3, 15, 26, .38), rgba(3, 15, 26, .06) 46%, rgba(3, 15, 26, .28)), linear-gradient(0deg, rgba(3, 15, 26, .42), transparent 35%); }
 .map-stage .network-svg { position: relative; z-index: 2; background: transparent; }
 .map-viewport { transform-origin: 430px 190px; transition: transform 520ms cubic-bezier(.23, 1, .32, 1); }
+.map-style-switcher { position: absolute; z-index: 6; top: 9px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 3px; padding: 3px; border: 1px solid rgba(92, 157, 191, .35); border-radius: 4px; background: rgba(4, 18, 29, .86); box-shadow: 0 8px 18px rgba(0, 0, 0, .22); }
+.map-style-switcher span { margin: 0 4px; color: #6c8c9e; font: 7px 'IBM Plex Mono'; letter-spacing: .06em; }
+.map-style-switcher button { border: 0; border-radius: 3px; padding: 4px 6px; color: #7f9aaa; background: transparent; font: 7px 'IBM Plex Mono'; text-transform: capitalize; cursor: pointer; }
+.map-style-switcher button.active { color: #eaffff; background: #0d5b83; box-shadow: inset 0 0 0 1px rgba(102, 231, 237, .35); }
+.map-style-street .network-svg { background: linear-gradient(rgba(9, 35, 45, .74), rgba(9, 35, 45, .74)), repeating-linear-gradient(45deg, rgba(157, 181, 148, .08) 0 1px, transparent 1px 25px), #24444a; }
+.map-style-street .network-svg > rect { opacity: .1; }
+.map-style-street .county-boundary { fill: rgba(80, 175, 178, .28); stroke: #8ff7e8; }
+.map-style-satellite .network-svg { background: radial-gradient(ellipse at 65% 20%, rgba(113, 134, 77, .42), transparent 32%), radial-gradient(ellipse at 25% 80%, rgba(132, 101, 56, .42), transparent 38%), #394b3d; }
+.map-style-satellite .network-svg > rect { opacity: .035; }
+.map-style-satellite .county-boundary { fill: rgba(61, 225, 190, .26); stroke: #a1fff2; }
+.map-style-satellite .map-viewport { filter: saturate(1.16) contrast(1.08); }
+.map-style-street .map-viewport { filter: saturate(.9) contrast(1.08); }
 .county-boundary { cursor: crosshair; transition: fill .18s ease-out, stroke .18s ease-out, filter .18s ease-out; }
 .county-boundary:hover, .county-boundary:focus { fill: rgba(44, 202, 214, .42); stroke: #d7ffff; filter: drop-shadow(0 0 9px rgba(105, 248, 255, .86)); outline: none; }
 .county-hover-tooltip { position: absolute; z-index: 7; top: 56px; left: 18px; display: grid; gap: 3px; min-width: 152px; padding: 9px 10px; border: 1px solid rgba(85, 237, 242, .65); border-left: 3px solid #55edf2; border-radius: 5px; background: rgba(4, 20, 31, .94); box-shadow: 0 10px 24px rgba(0, 0, 0, .3); pointer-events: none; }
@@ -169,6 +181,21 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 .county-stats-heading h3 { margin: 4px 0 0; color: #e9fbff; font-size: 11px; }
 .county-status { color: #35d6ad; font: 7px 'IBM Plex Mono'; letter-spacing: .05em; }
 .county-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px 12px; margin: 12px 0; }
+.demographic-chart { margin-top: 9px; padding-top: 8px; border-top: 1px solid rgba(84, 143, 174, .2); }
+.demographic-chart-heading { display: flex; justify-content: space-between; gap: 6px; margin-bottom: 7px; color: #b6dce3; font-size: 7px; }
+.demographic-chart-heading small { color: #6c8c9e; font-size: 6px; text-align: right; }
+.sex-bars { display: grid; gap: 6px; }
+.sex-bars > div { display: grid; gap: 3px; }
+.sex-bars span, .population-labels { display: flex; justify-content: space-between; color: #809eab; font: 7px 'IBM Plex Mono'; }
+.sex-bars b, .population-labels b { color: #dffcff; font-weight: 400; }
+.sex-bars i, .population-bar i { display: block; height: 5px; border-radius: 2px; transition: width .35s ease-out; }
+.female-bar { background: linear-gradient(90deg, #e47fb7, #ffb3dd); }
+.male-bar { background: linear-gradient(90deg, #4aa5ff, #88ddff); }
+.population-chart { padding-bottom: 1px; }
+.population-bar { height: 6px; margin: 8px 0 5px; border-radius: 3px; background: #12334a; overflow: hidden; }
+.population-bar i { background: linear-gradient(90deg, #2dd3d9, #2e8af6); }
+.population-labels { font-family: inherit; }
+.county-source { display: block; margin-top: 6px; color: #587789; font: 6px 'IBM Plex Mono'; line-height: 1.3; }
 .county-stats-grid span { display: grid; gap: 2px; color: #728fa1; font-size: 7px; }
 .county-stats-grid b { color: #dffcff; font: 10px 'IBM Plex Mono'; }
 .county-stats-grid small { font-size: 7px; }
@@ -184,7 +211,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 .map-stage .map-legend { background: rgba(4, 18, 29, .84); border-color: rgba(108, 181, 220, .4); }
 .map-stage .map-scale { background: rgba(4, 18, 29, .86); }
 .map-stage .map-selected-label rect { fill: rgba(3, 17, 28, .9); }
-@media (max-width: 820px) { .reference-map-image { object-position: 52% center; } .county-stats-panel { top: 10px; right: 44px; width: 156px; padding: 8px; } .county-stats-grid { gap: 7px 8px; margin: 9px 0; } .county-hover-tooltip { top: 54px; left: 12px; } }
+@media (max-width: 820px) { .reference-map-image { object-position: 52% center; } .map-style-switcher { left: 14px; transform: none; top: 9px; } .map-style-switcher span { display: none; } .county-stats-panel { top: 42px; right: 44px; width: 156px; padding: 8px; } .county-stats-grid { gap: 7px 8px; margin: 9px 0; } .county-hover-tooltip { top: 54px; left: 12px; } }
 
 /* Lively map recreation: animation communicates flow, health, and operational urgency. */
 .map-panel { overflow: hidden; }

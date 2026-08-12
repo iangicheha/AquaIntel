@@ -1,6 +1,6 @@
-# Interactive Nairobi County map enhancement
+# Map styles and Nairobi County demographics
 
-- [x] Add smooth auto-zoom that centers and fits Nairobi County.
-- [x] Add a hover tooltip for the county boundary.
-- [x] Add a compact Nairobi County statistics panel.
-- [x] Verify interactions and publish a checkpoint.
+- [x] Add satellite, street, and dark map style controls.
+- [x] Source authoritative Nairobi County demographic data for the panel.
+- [x] Add dynamic demographic charts with clear labels and units.
+- [x] Verify styles and charts, then publish a checkpoint.
