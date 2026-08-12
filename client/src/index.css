@@ -216,6 +216,8 @@ button:focus-visible, input:focus-visible { outline: 2px solid #26d8c2; outline-
 /* Lively map recreation: animation communicates flow, health, and operational urgency. */
 .map-panel { overflow: hidden; }
 .network-svg { background: radial-gradient(circle at 48% 45%, rgba(20, 79, 100, .32), transparent 54%), #071b2b; }
+/* County-only map mode: keep the boundary unobstructed by the snapshot overlay. */
+.county-stats-panel { display: none; }
 .network-pipes path { stroke-dasharray: none; }
 .network-pipes .transmission { filter: drop-shadow(0 0 3px rgba(48, 142, 255, .48)); }
 .network-pipes .distribution { filter: drop-shadow(0 0 2px rgba(32, 189, 168, .38)); }

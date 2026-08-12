@@ -1,6 +1,5 @@
-# Map styles and Nairobi County demographics
+# Remove Nairobi County snapshot panel
 
-- [x] Add satellite, street, and dark map style controls.
-- [x] Source authoritative Nairobi County demographic data for the panel.
-- [x] Add dynamic demographic charts with clear labels and units.
-- [x] Verify styles and charts, then publish a checkpoint.
+- [x] Remove the county snapshot panel from the map.
+- [x] Rebalance the map layout after panel removal.
+- [x] Verify the simplified map and publish a checkpoint.
