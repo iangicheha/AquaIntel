@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
   Bell,
@@ -11,6 +11,7 @@ import {
   GitBranch,
   Grid2X2,
   Layers3,
+  LocateFixed,
   Map,
   Menu,
   MoreHorizontal,
@@ -79,8 +80,11 @@ type MapMode = "pressure" | "flow";
 function NetworkMap() {
   const [mode, setMode] = useState<MapMode>("pressure");
   const [selected, setSelected] = useState("Embakasi");
-  const [zoom, setZoom] = useState(1); const [showEvidence, setShowEvidence] = useState(false); const [showIntel, setShowIntel] = useState(true); const [showLayers, setShowLayers] = useState(false); const [showPipeDetails, setShowPipeDetails] = useState(true); const [selectedDMA, setSelectedDMA] = useState("Embakasi"); const [layers, setLayers] = useState({ pipes: true, valves: true, reservoirs: true, sensors: true, alerts: true, dmas: true, ai: true });
+  const [zoom, setZoom] = useState(1.15); const [showEvidence, setShowEvidence] = useState(false); const [showIntel, setShowIntel] = useState(true); const [showLayers, setShowLayers] = useState(false); const [showPipeDetails, setShowPipeDetails] = useState(true); const [selectedDMA, setSelectedDMA] = useState("Embakasi"); const [layers, setLayers] = useState({ pipes: true, valves: true, reservoirs: true, sensors: true, alerts: true, dmas: true, ai: true });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [countyHover, setCountyHover] = useState(false);
+  const fitCounty = () => { setOffset({ x: 0, y: 0 }); setZoom(1.15); };
+  useEffect(() => { const frame = window.requestAnimationFrame(fitCounty); return () => window.cancelAnimationFrame(frame); }, []);
   const selectedAlert = alerts.find((a) => a.zone === selected) || alerts[1];
   const selectedDmaMetrics = dmaMetrics[selectedDMA];
   const nodes = useMemo(() => [
@@ -91,18 +95,22 @@ function NetworkMap() {
   ] as [number, number, string][], []);
   const toggleLayer = (key: keyof typeof layers) => setLayers((current) => ({ ...current, [key]: !current[key] }));
   return <Panel className="map-panel">
-    <div className="map-header"><div><h2>Nairobi County <span className="demo-chip">VERIFIED COUNTY BOUNDARY</span></h2><small>County geography · {mode === "pressure" ? "Pressure alerts" : "Flow alerts"}</small></div><div className="map-actions"><button aria-label="zoom in" onClick={() => setZoom((v) => Math.min(1.5, v + .1))}><ZoomIn size={15} /></button><button aria-label="zoom out" onClick={() => setZoom((v) => Math.max(.8, v - .1))}><ZoomOut size={15} /></button><button aria-label="layers" className={showLayers ? "active" : ""} onClick={() => setShowLayers((v) => !v)}><Layers3 size={16} /></button><button aria-label="filter"><Filter size={16} /></button></div></div>
+    <div className="map-header"><div><h2>Nairobi County <span className="demo-chip">VERIFIED COUNTY BOUNDARY</span></h2><small>County geography · {mode === "pressure" ? "Pressure alerts" : "Flow alerts"}</small></div><div className="map-actions"><button aria-label="zoom in" onClick={() => setZoom((v) => Math.min(1.5, v + .1))}><ZoomIn size={15} /></button><button aria-label="zoom out" onClick={() => setZoom((v) => Math.max(.8, v - .1))}><ZoomOut size={15} /></button><button aria-label="fit Nairobi County" className="fit-county-button" onClick={fitCounty}><LocateFixed size={15} /></button><button aria-label="layers" className={showLayers ? "active" : ""} onClick={() => setShowLayers((v) => !v)}><Layers3 size={16} /></button><button aria-label="filter"><Filter size={16} /></button></div></div>
     {showLayers && <div className="layer-control-panel"><div className="layer-control-head"><div><strong>Map layers</strong><small>Toggle simulated digital-twin overlays</small></div><X size={14} onClick={() => setShowLayers(false)} /></div><div className="layer-group"><span>County context</span><button className={layers.dmas ? "on" : ""} onClick={() => toggleLayer("dmas")}>Nairobi County</button><button className={layers.reservoirs ? "on" : ""} onClick={() => toggleLayer("reservoirs")}>Water facilities</button></div><div className="layer-group"><span>Monitoring</span><button className={layers.sensors ? "on" : ""} onClick={() => toggleLayer("sensors")}>Pressure sensors</button><button className={layers.alerts ? "on" : ""} onClick={() => toggleLayer("alerts")}>Leak alerts</button></div><div className="layer-group"><span>AI overlays</span><button className={layers.ai ? "on" : ""} onClick={() => toggleLayer("ai")}>Leak probability</button><button className={layers.dmas ? "on" : ""} onClick={() => toggleLayer("dmas")}>DMAs</button></div></div>}<div className="map-stage"><svg viewBox="0 0 860 380" className="network-svg" aria-label="Nairobi County verified boundary and high-level water alerts" onPointerDown={(e) => { const startX = e.clientX; const startY = e.clientY; const sx = offset.x; const sy = offset.y; const move = (ev: PointerEvent) => setOffset({ x: sx + ev.clientX - startX, y: sy + ev.clientY - startY }); const up = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); }; window.addEventListener("pointermove", move); window.addEventListener("pointerup", up); }}>
         <defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#183a55" strokeWidth=".65" /></pattern><marker id="flowArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8ee9ff" /></marker></defs>
         <rect width="860" height="380" fill="url(#grid)" />
-        <g className="county-context"><g transform="translate(430 190) scale(1.15) translate(-430 -190)"><path className="county-boundary" d={nairobiCountyBoundaryPath}><title>{nairobiCountyBoundarySource}</title></path></g><text x="350" y="205" className="county-label">NAIROBI COUNTY</text></g>
-        <g transform={`translate(${offset.x} ${offset.y}) scale(${zoom})`} className="topology-layer">
+        <g className="map-viewport" transform={`translate(${offset.x} ${offset.y}) scale(${zoom})`}>
+          <g className="county-context"><g><path className="county-boundary" d={nairobiCountyBoundaryPath} onMouseEnter={() => setCountyHover(true)} onMouseLeave={() => setCountyHover(false)} onFocus={() => setCountyHover(true)} onBlur={() => setCountyHover(false)} tabIndex={0} role="img" aria-label="Nairobi County verified boundary"><title>{nairobiCountyBoundarySource}</title></path></g><text x="350" y="205" className="county-label">NAIROBI COUNTY</text></g>
+        <g className="topology-layer">
           
           {false && <g className="network-nodes">{nodes.map(([x, y, kind], i) => kind === "valve" && layers.valves ? <rect key={i} x={x - 4} y={y - 4} width="8" height="8" className="valve-node" onClick={() => toast(`Valve ${i + 1} selected`)} /> : kind === "reservoir" && layers.reservoirs ? <g key={i} onClick={() => toast("Demo reservoir selected")}><rect x={x - 10} y={y - 7} width="20" height="14" rx="2" className="reservoir-node" /><path d={`M${x - 7} ${y - 2}h14`} className="reservoir-water" /></g> : kind === "sensor" && layers.sensors ? <circle key={i} cx={x} cy={y} r="3" className={i % 7 === 0 ? "sensor-node warning" : "sensor-node"} onClick={() => toast(`Pressure sensor PS-${i + 1} selected`)} /> : null)}</g>}
 
 
         </g>
+        </g>
       </svg>
+      {countyHover && <div className="county-hover-tooltip"><strong>Nairobi County</strong><span>Verified county boundary</span><small>Area alerts · 23 active</small></div>}
+      <div className="county-stats-panel"><div className="county-stats-heading"><div><span className="eyebrow">COUNTY SNAPSHOT</span><h3>Nairobi County</h3></div><span className="county-status">LIVE DEMO</span></div><div className="county-stats-grid"><span><b>4.4M</b><small>Residents</small></span><span><b>696 km²</b><small>Area</small></span><span><b>23</b><small>Active alerts</small></span><span><b>42.6%</b><small>NRW today</small></span></div><div className="county-stats-footer"><span><i className="status-green" />Boundary verified</span><button onClick={fitCounty}>Fit county <LocateFixed size={12} /></button></div></div>
       <div className="map-legend"><strong>County view</strong><span><i className="legend-boundary" />Verified Nairobi County boundary</span></div>
       <div className="map-scale"><div className="metric-toggle"><button className={mode === "pressure" ? "active" : ""} onClick={() => setMode("pressure")}>Pressure</button><button className={mode === "flow" ? "active" : ""} onClick={() => setMode("flow")}>Flow</button></div><div className={`scale-bar ${mode}`} /><small>Low <b>High</b></small></div>
       <div className="map-help">Drag to pan · use the controls to inspect Nairobi County alerts</div><div className="demo-network-stamp">NAIROBI COUNTY VIEW · Simulated alert data</div>

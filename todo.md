@@ -1,5 +1,6 @@
-# Nairobi County boundary visibility correction
+# Interactive Nairobi County map enhancement
 
-- [x] Increase county boundary stroke contrast and thickness.
-- [x] Add a subtle filled county silhouette and reduce background map noise.
-- [x] Verify the county is clearly visible and publish a checkpoint.
+- [x] Add smooth auto-zoom that centers and fits Nairobi County.
+- [x] Add a hover tooltip for the county boundary.
+- [x] Add a compact Nairobi County statistics panel.
+- [x] Verify interactions and publish a checkpoint.
